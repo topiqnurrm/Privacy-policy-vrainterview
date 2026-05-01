@@ -54,7 +54,6 @@
     }
 
     .topbar-logo img {
-      /* 194x150.88 → scale to height 32px, width = 32 * (194/150.88) = 41.1px */
       height: 32px;
       width: 41px;
       object-fit: contain;
@@ -173,7 +172,6 @@
     }
 
     .hero-card-item:last-child { border-bottom: none; }
-    .hero-card-item:first-child { }
 
     .hero-card-label {
       font-family: 'DM Sans', sans-serif;
@@ -415,6 +413,52 @@
 
     .callout-text strong { font-weight: 500; color: var(--ink); }
 
+    /* ── STEPS ── */
+    .steps {
+      margin: 18px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px 18px;
+      transition: border-color 0.15s;
+    }
+
+    .step-item:hover { border-color: var(--blue-mid); }
+
+    .step-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--blue);
+      background: var(--blue-light);
+      border-radius: 8px;
+      width: 30px; height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .step-text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--ink2);
+      line-height: 1.65;
+    }
+
+    .step-text strong { font-weight: 500; color: var(--ink); }
+
     /* ── CONTACT ── */
     .contact-grid {
       display: grid;
@@ -515,7 +559,7 @@
       font-family: 'DM Sans', sans-serif;
       font-size: 12px;
       font-weight: 300;
-      color: rgba(255,255,255,0.4);
+      color: #ffffff;
       text-align: right;
     }
 
@@ -605,8 +649,9 @@
       <li><a href="#s3"><span class="toc-num">03</span>Berbagi Informasi</a></li>
       <li><a href="#s4"><span class="toc-num">04</span>Keamanan Data</a></li>
       <li><a href="#s5"><span class="toc-num">05</span>Hak Pengguna</a></li>
-      <li><a href="#s6"><span class="toc-num">06</span>Perubahan Kebijakan</a></li>
-      <li><a href="#s7"><span class="toc-num">07</span>Hubungi Kami</a></li>
+      <li><a href="#s6"><span class="toc-num">06</span>Hapus Akun & Data</a></li>
+      <li><a href="#s7"><span class="toc-num">07</span>Perubahan Kebijakan</a></li>
+      <li><a href="#s8"><span class="toc-num">08</span>Hubungi Kami</a></li>
     </ul>
   </aside>
 
@@ -614,7 +659,7 @@
   <main class="content">
 
     <div class="intro-box">
-      Aplikasi <strong>VRAINTERVIEW</strong> dikembangkan sebagai proyek penelitian berbasis Virtual Reality untuk simulasi wawancara kerja. Dengan menggunakan aplikasi ini, Anda menyetujui kebijakan privasi yang tercantum di bawah ini.
+      Aplikasi <strong>VRAINTERVIEW</strong> dikembangkan sebagai proyek penelitian berbasis Virtual Reality untuk simulasi wawancara kerja. Aplikasi ini memerlukan koneksi internet dan menggunakan layanan <strong>Firebase</strong> serta <strong>Google Gemini API</strong>. Dengan menggunakan aplikasi ini, Anda menyetujui kebijakan privasi yang tercantum di bawah ini.
     </div>
 
     <!-- 01 -->
@@ -623,14 +668,39 @@
         <span class="section-index">01</span>
         <h2>Informasi yang Dikumpulkan</h2>
       </div>
-      <p>VRAINTERVIEW dirancang dengan prinsip <em>privacy by design</em>. Aplikasi ini tidak mengumpulkan data pribadi yang dapat diidentifikasi secara langsung. Berikut kategori data yang mungkin diakses:</p>
+      <p>VRAINTERVIEW mengumpulkan beberapa kategori data yang diperlukan untuk menjalankan fitur simulasi wawancara secara penuh. Berikut rincian data yang dikumpulkan dan tujuannya:</p>
+
+      <p><strong style="font-family:'Syne',sans-serif; font-size:13px; color:var(--ink);">Data Akun & Identitas</strong></p>
       <div class="table-wrap">
         <table class="data-table">
-          <tr><td><span class="dot"></span>Data Perangkat</td><td>Jenis perangkat, versi sistem operasi Android, dan spesifikasi hardware untuk keperluan optimasi performa aplikasi.</td></tr>
-          <tr><td><span class="dot"></span>Data Sesi</td><td>Log aktivitas dalam aplikasi seperti durasi sesi dan interaksi menu, digunakan untuk analisis performa.</td></tr>
-          <tr><td><span class="dot"></span>Kamera / Mikrofon</td><td>Hanya diakses saat fitur simulasi wawancara aktif. Tidak direkam atau disimpan secara permanen.</td></tr>
-          <tr><td><span class="dot"></span>Tidak Dikumpulkan</td><td>Nama, email, nomor telepon, lokasi GPS, dan informasi keuangan tidak pernah dikumpulkan oleh aplikasi ini.</td></tr>
+          <tr><td><span class="dot"></span>Email</td><td>Digunakan untuk autentikasi akun melalui Firebase Authentication. Email disimpan di Firebase dan menjadi satu-satunya data identitas yang tersimpan di server.</td></tr>
+          <tr><td><span class="dot"></span>Nama Pengguna</td><td>Nama yang diinputkan saat pendaftaran, disimpan di Firebase Firestore untuk keperluan personalisasi tampilan aplikasi.</td></tr>
         </table>
+      </div>
+
+      <p><strong style="font-family:'Syne',sans-serif; font-size:13px; color:var(--ink);">Data Sesi Wawancara</strong></p>
+      <div class="table-wrap">
+        <table class="data-table">
+          <tr><td><span class="dot"></span>CV / Resume</td><td>File CV dapat diunggah secara opsional. Namun, unggahan CV <em>wajib dilakukan</em> agar pengguna dapat memulai sesi VR Interview. CV disimpan di Firebase Storage dan digunakan sebagai konteks pertanyaan wawancara.</td></tr>
+          <tr><td><span class="dot"></span>Input Suara</td><td>Jawaban wawancara direkam melalui mikrofon saat sesi VR Interview berlangsung. Rekaman suara diproses dan hasilnya (transkrip teks) disimpan di Firebase Firestore sebagai catatan sesi.</td></tr>
+          <tr><td><span class="dot"></span>Jawaban Sesi</td><td>Seluruh jawaban atas pertanyaan wawancara dalam satu sesi disimpan di Firebase Firestore untuk keperluan evaluasi dan riwayat wawancara pengguna.</td></tr>
+        </table>
+      </div>
+
+      <p><strong style="font-family:'Syne',sans-serif; font-size:13px; color:var(--ink);">Data Personalisasi (Bukan Data Pribadi)</strong></p>
+      <div class="table-wrap">
+        <table class="data-table">
+          <tr><td><span class="dot"></span>Nama Perusahaan</td><td>Input teks untuk menyesuaikan konteks wawancara. Tidak terikat pada identitas pengguna secara personal.</td></tr>
+          <tr><td><span class="dot"></span>Posisi Jabatan</td><td>Input teks untuk menyesuaikan jenis pertanyaan yang dihasilkan AI.</td></tr>
+          <tr><td><span class="dot"></span>Bahasa & Kode</td><td>Preferensi bahasa dan kode sesi yang digunakan untuk konfigurasi sesi wawancara.</td></tr>
+        </table>
+      </div>
+
+      <div class="callout">
+        <div class="callout-icon">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <p class="callout-text"><strong>Tidak ada data sensitif</strong> seperti nomor telepon, lokasi GPS, informasi keuangan, atau data biometrik yang dikumpulkan maupun disimpan oleh aplikasi ini.</p>
       </div>
     </div>
 
@@ -645,9 +715,10 @@
       <p>Data yang dikumpulkan hanya digunakan untuk tujuan berikut:</p>
       <div class="table-wrap">
         <table class="data-table">
-          <tr><td><span class="dot"></span>Optimasi Performa</td><td>Mengoptimalkan performa aplikasi VR pada berbagai perangkat Android.</td></tr>
-          <tr><td><span class="dot"></span>Perbaikan Bug</td><td>Mendiagnosis dan memperbaiki bug atau crash yang terjadi selama penggunaan.</td></tr>
-          <tr><td><span class="dot"></span>Penelitian Akademis</td><td>Keperluan penelitian pengembang — data dianalisis secara anonim dan agregat.</td></tr>
+          <tr><td><span class="dot"></span>Autentikasi Akun</td><td>Email digunakan untuk proses login dan manajemen akun melalui Firebase Authentication.</td></tr>
+          <tr><td><span class="dot"></span>Simulasi Wawancara</td><td>CV dan data personalisasi digunakan sebagai konteks untuk Google Gemini API dalam menghasilkan pertanyaan wawancara yang relevan.</td></tr>
+          <tr><td><span class="dot"></span>Riwayat & Evaluasi</td><td>Jawaban sesi disimpan agar pengguna dapat meninjau kembali riwayat wawancara dan perkembangan mereka.</td></tr>
+          <tr><td><span class="dot"></span>Penelitian Akademis</td><td>Data dianalisis secara anonim dan agregat untuk keperluan penelitian pengembang mengenai efektivitas simulasi wawancara berbasis VR.</td></tr>
         </table>
       </div>
       <div class="callout">
@@ -664,9 +735,11 @@
         <span class="section-index">03</span>
         <h2>Berbagi Informasi</h2>
       </div>
-      <p>VRAINTERVIEW tidak menjual, menukar, atau memindahkan informasi Anda kepada pihak luar. Pengecualian hanya berlaku dalam kondisi berikut:</p>
+      <p>VRAINTERVIEW tidak menjual, menukar, atau memindahkan informasi Anda kepada pihak luar. Data Anda hanya dibagikan kepada layanan pihak ketiga berikut yang diperlukan untuk menjalankan fungsi utama aplikasi:</p>
       <div class="table-wrap">
         <table class="data-table">
+          <tr><td><span class="dot"></span>Firebase (Google)</td><td>Layanan backend untuk autentikasi, penyimpanan data sesi, dan file CV. Data diproses sesuai kebijakan privasi Google/Firebase.</td></tr>
+          <tr><td><span class="dot"></span>Google Gemini API</td><td>CV dan konteks sesi dikirimkan ke API ini untuk menghasilkan pertanyaan wawancara. Data tidak digunakan untuk melatih model oleh Google sesuai ketentuan layanan API.</td></tr>
           <tr><td><span class="dot"></span>Kewajiban Hukum</td><td>Diwajibkan oleh hukum atau perintah pengadilan yang berlaku di Indonesia.</td></tr>
           <tr><td><span class="dot"></span>Perlindungan Pengguna</td><td>Diperlukan untuk melindungi hak, keselamatan, atau keamanan pengguna.</td></tr>
         </table>
@@ -681,10 +754,18 @@
         <span class="section-index">04</span>
         <h2>Keamanan Data</h2>
       </div>
-      <p>Kami menerapkan langkah-langkah teknis yang sesuai untuk melindungi data Anda dari akses tidak sah, perubahan, pengungkapan, atau penghancuran. Namun demikian, tidak ada metode transmisi atau penyimpanan data yang 100% aman.</p>
+      <p>VRAINTERVIEW memerlukan koneksi internet untuk berfungsi, karena menggunakan infrastruktur cloud dari Firebase dan Google Gemini API. Kami menerapkan langkah-langkah keamanan berikut untuk melindungi data Anda:</p>
+      <div class="table-wrap">
+        <table class="data-table">
+          <tr><td><span class="dot"></span>Enkripsi Transit</td><td>Semua komunikasi data antara aplikasi dan server menggunakan protokol HTTPS/TLS sehingga data terenkripsi selama pengiriman.</td></tr>
+          <tr><td><span class="dot"></span>Firebase Security Rules</td><td>Akses ke data di Firestore dan Storage dibatasi menggunakan Firebase Security Rules sehingga hanya pengguna yang terautentikasi yang dapat mengakses data miliknya sendiri.</td></tr>
+          <tr><td><span class="dot"></span>Autentikasi Aman</td><td>Sistem login menggunakan Firebase Authentication yang mengelola keamanan kredensial secara terpusat tanpa menyimpan password secara langsung.</td></tr>
+          <tr><td><span class="dot"></span>Minimisasi Data</td><td>Hanya data yang benar-benar diperlukan untuk fungsi aplikasi yang dikumpulkan dan disimpan. Tidak ada data sensitif yang tersimpan di database.</td></tr>
+        </table>
+      </div>
       <div class="callout">
         <div class="callout-icon"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-        <p class="callout-text">Aplikasi ini berjalan <strong>sepenuhnya secara lokal</strong> di perangkat Anda dan tidak memerlukan koneksi internet untuk fungsi utamanya.</p>
+        <p class="callout-text">Meskipun kami menerapkan langkah-langkah keamanan terbaik, tidak ada sistem transmisi atau penyimpanan data yang <strong>100% aman secara mutlak</strong>. Kami menyarankan pengguna untuk menjaga kerahasiaan kredensial akun mereka.</p>
       </div>
     </div>
 
@@ -699,20 +780,81 @@
       <p>Sebagai pengguna, Anda memiliki hak penuh atas data Anda:</p>
       <div class="table-wrap">
         <table class="data-table">
-          <tr><td><span class="dot"></span>Hak Tahu</td><td>Mengetahui data apa saja yang dikumpulkan oleh aplikasi ini.</td></tr>
-          <tr><td><span class="dot"></span>Hak Hapus</td><td>Meminta penghapusan data dengan cara menghapus instalasi aplikasi dari perangkat Anda.</td></tr>
-          <tr><td><span class="dot"></span>Cabut Izin</td><td>Mencabut izin akses kamera/mikrofon kapan saja melalui Pengaturan Android.</td></tr>
-          <tr><td><span class="dot"></span>Hak Bertanya</td><td>Mengajukan pertanyaan atau keberatan mengenai privasi kepada pengembang.</td></tr>
+          <tr><td><span class="dot"></span>Hak Tahu</td><td>Mengetahui data apa saja yang dikumpulkan dan disimpan oleh aplikasi ini.</td></tr>
+          <tr><td><span class="dot"></span>Hak Hapus Data</td><td>Menghapus seluruh data sesi wawancara dan file CV kapan saja langsung dari dalam aplikasi.</td></tr>
+          <tr><td><span class="dot"></span>Hak Hapus Akun</td><td>Menghapus akun beserta seluruh data terkait secara permanen dari Firebase, termasuk data autentikasi, data Firestore, dan file di Storage.</td></tr>
+          <tr><td><span class="dot"></span>Cabut Izin</td><td>Mencabut izin akses kamera/mikrofon kapan saja melalui Pengaturan Android tanpa perlu menghapus akun.</td></tr>
+          <tr><td><span class="dot"></span>Hak Bertanya</td><td>Mengajukan pertanyaan atau keberatan mengenai privasi kepada pengembang melalui saluran kontak yang tersedia.</td></tr>
         </table>
       </div>
     </div>
 
     <div class="divider"></div>
 
-    <!-- 06 -->
+    <!-- 06 — NEW: Hapus Akun & Data -->
     <div class="section" id="s6">
       <div class="section-top">
         <span class="section-index">06</span>
+        <h2>Hapus Akun &amp; Data</h2>
+      </div>
+      <p>Pengguna memiliki kendali penuh untuk menghapus data maupun akun mereka kapan saja, langsung dari dalam aplikasi VRAINTERVIEW. Proses penghapusan bersifat permanen dan tidak dapat dibatalkan.</p>
+
+      <p><strong style="font-family:'Syne',sans-serif; font-size:13px; color:var(--ink);">Menghapus Data Sesi</strong></p>
+      <p>Untuk menghapus riwayat sesi wawancara dan file CV tanpa menghapus akun:</p>
+      <div class="steps">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text">Buka aplikasi VRAINTERVIEW dan masuk ke halaman <strong>Profil</strong> atau <strong>Riwayat Sesi</strong>.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text">Pilih sesi yang ingin dihapus, atau gunakan opsi <strong>"Hapus Semua Riwayat"</strong> untuk menghapus seluruh data sesi sekaligus.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text">Untuk menghapus file CV, buka halaman <strong>Pengaturan Profil</strong> dan pilih <strong>"Hapus CV"</strong>.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-text">Konfirmasi penghapusan. Data akan dihapus secara permanen dari Firebase Storage dan Firestore.</div>
+        </div>
+      </div>
+
+      <p style="margin-top: 24px;"><strong style="font-family:'Syne',sans-serif; font-size:13px; color:var(--ink);">Menghapus Akun Secara Permanen</strong></p>
+      <p>Penghapusan akun akan menghapus <em>seluruh data Anda</em> dari Firebase, termasuk akun autentikasi, data profil, riwayat sesi, dan file CV yang tersimpan.</p>
+      <div class="steps">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text">Buka aplikasi dan masuk ke menu <strong>Pengaturan</strong> atau <strong>Profil Saya</strong>.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text">Gulir ke bawah dan temukan opsi <strong>"Hapus Akun"</strong>.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text">Baca informasi konfirmasi yang ditampilkan. Sistem mungkin meminta verifikasi identitas (re-login) sebelum proses penghapusan.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-text">Konfirmasi penghapusan. Akun dan <strong>seluruh data terkait</strong> akan dihapus secara permanen dari Firebase Authentication, Firestore, dan Storage.</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-icon">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <p class="callout-text">Penghapusan akun bersifat <strong>permanen dan tidak dapat dibatalkan</strong>. Pastikan Anda telah menyimpan data yang diperlukan sebelum melanjutkan. Jika mengalami kendala dalam proses penghapusan, hubungi pengembang melalui kontak yang tersedia di bagian bawah halaman ini.</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- 07 -->
+    <div class="section" id="s7">
+      <div class="section-top">
+        <span class="section-index">07</span>
         <h2>Perubahan Kebijakan</h2>
       </div>
       <p>Kami dapat memperbarui kebijakan privasi ini dari waktu ke waktu. Perubahan akan diberitahukan melalui pembaruan aplikasi atau halaman ini. Kami mendorong Anda untuk meninjau halaman ini secara berkala.</p>
@@ -724,10 +866,10 @@
 
     <div class="divider"></div>
 
-    <!-- 07 -->
-    <div class="section" id="s7">
+    <!-- 08 -->
+    <div class="section" id="s8">
       <div class="section-top">
-        <span class="section-index">07</span>
+        <span class="section-index">08</span>
         <h2>Hubungi Kami</h2>
       </div>
       <p>Jika Anda memiliki pertanyaan atau kekhawatiran mengenai kebijakan privasi ini, silakan hubungi pengembang melalui saluran berikut:</p>
@@ -739,12 +881,12 @@
           <p class="contact-label">Email Pengembang</p>
           <p class="contact-value">toopique@gmail.com</p>
         </a>
-        <a class="contact-item" href="https://github.com/topiqnurrm" target="_blank" rel="noopener">
+        <a class="contact-item" href="https://topiqnurrm.vercel.app" target="_blank" rel="noopener">
           <div class="contact-icon-wrap">
-            <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           </div>
-          <p class="contact-label">GitHub Repository</p>
-          <p class="contact-value">github.com/topiqnurrm</p>
+          <p class="contact-label">Portofolio Pengembang</p>
+          <p class="contact-value">topiqnurrm.vercel.app</p>
         </a>
       </div>
     </div>

@@ -150,7 +150,6 @@
       animation: fadeDown 0.5s 0.16s ease both;
     }
 
-    /* Hero right card */
     .hero-card {
       background: var(--paper3);
       border: 1px solid var(--line);
@@ -521,6 +520,16 @@
       margin: 52px 0;
     }
 
+    /* ── SUBHEADING ── */
+    .sub-heading {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-top: 24px;
+      margin-bottom: 10px;
+    }
+
     /* ── FOOTER ── */
     footer {
       background: var(--ink);
@@ -559,8 +568,12 @@
       font-family: 'DM Sans', sans-serif;
       font-size: 12px;
       font-weight: 300;
-      color: #ffffff;
+      color: #ffffff !important;
       text-align: right;
+    }
+
+    .footer-right p {
+      color: #ffffff;
     }
 
     /* ── ANIMATIONS ── */
@@ -649,7 +662,7 @@
       <li><a href="#s3"><span class="toc-num">03</span>Berbagi Informasi</a></li>
       <li><a href="#s4"><span class="toc-num">04</span>Keamanan Data</a></li>
       <li><a href="#s5"><span class="toc-num">05</span>Hak Pengguna</a></li>
-      <li><a href="#s6"><span class="toc-num">06</span>Hapus Akun & Data</a></li>
+      <li><a href="#s6"><span class="toc-num">06</span>Hapus Akun &amp; Data</a></li>
       <li><a href="#s7"><span class="toc-num">07</span>Perubahan Kebijakan</a></li>
       <li><a href="#s8"><span class="toc-num">08</span>Hubungi Kami</a></li>
     </ul>
@@ -659,7 +672,7 @@
   <main class="content">
 
     <div class="intro-box">
-      Aplikasi <strong>VRAINTERVIEW</strong> dikembangkan sebagai proyek penelitian berbasis Virtual Reality untuk simulasi wawancara kerja. Aplikasi ini memerlukan koneksi internet dan menggunakan layanan <strong>Firebase</strong> serta <strong>Google Gemini API</strong>. Dengan menggunakan aplikasi ini, Anda menyetujui kebijakan privasi yang tercantum di bawah ini.
+      Aplikasi <strong>VRAINTERVIEW</strong> dikembangkan sebagai proyek penelitian berbasis Virtual Reality untuk simulasi wawancara kerja yang imersif dan interaktif. Aplikasi ini memerlukan koneksi internet dan menggunakan layanan <strong>Firebase</strong> serta <strong>Google Gemini API</strong>. Dengan menggunakan aplikasi ini, Anda menyetujui kebijakan privasi yang tercantum di bawah ini.
     </div>
 
     <!-- 01 -->
@@ -668,31 +681,35 @@
         <span class="section-index">01</span>
         <h2>Informasi yang Dikumpulkan</h2>
       </div>
-      <p>VRAINTERVIEW mengumpulkan beberapa kategori data yang diperlukan untuk menjalankan fitur simulasi wawancara secara penuh. Berikut rincian data yang dikumpulkan dan tujuannya:</p>
+      <p>VRAINTERVIEW mengumpulkan beberapa kategori data yang diperlukan untuk menjalankan fitur simulasi wawancara, fitur persiapan wawancara, dan fitur manajemen akun secara penuh. Berikut rincian data yang dikumpulkan beserta tujuannya:</p>
 
-      <p><strong style="font-family:'Syne',sans-serif; font-size:13px; color:var(--ink);">Data Akun & Identitas</strong></p>
+      <p class="sub-heading">Data Akun &amp; Identitas</p>
       <div class="table-wrap">
         <table class="data-table">
-          <tr><td><span class="dot"></span>Email</td><td>Digunakan untuk autentikasi akun melalui Firebase Authentication. Email disimpan di Firebase dan menjadi satu-satunya data identitas yang tersimpan di server.</td></tr>
-          <tr><td><span class="dot"></span>Nama Pengguna</td><td>Nama yang diinputkan saat pendaftaran, disimpan di Firebase Firestore untuk keperluan personalisasi tampilan aplikasi.</td></tr>
+          <tr><td><span class="dot"></span>Email</td><td>Digunakan untuk autentikasi akun melalui Firebase Authentication, baik login manual maupun login via Google. Email disimpan di Firebase dan menjadi satu-satunya data identitas yang tersimpan di server.</td></tr>
+          <tr><td><span class="dot"></span>Nama Pengguna</td><td>Nama yang diinputkan saat pendaftaran atau diambil dari akun Google, disimpan di Firebase Firestore untuk keperluan personalisasi tampilan aplikasi.</td></tr>
+          <tr><td><span class="dot"></span>Foto Profil</td><td>Diambil otomatis dari akun Google apabila pengguna melakukan login melalui Google. Foto hanya ditampilkan di halaman profil dan tidak disimpan ulang di server aplikasi.</td></tr>
         </table>
       </div>
 
-      <p><strong style="font-family:'Syne',sans-serif; font-size:13px; color:var(--ink);">Data Sesi Wawancara</strong></p>
+      <p class="sub-heading">Data Persiapan &amp; Sesi Wawancara</p>
       <div class="table-wrap">
         <table class="data-table">
-          <tr><td><span class="dot"></span>CV / Resume</td><td>File CV dapat diunggah secara opsional. Namun, unggahan CV <em>wajib dilakukan</em> agar pengguna dapat memulai sesi VR Interview. CV disimpan di Firebase Storage dan digunakan sebagai konteks pertanyaan wawancara.</td></tr>
-          <tr><td><span class="dot"></span>Input Suara</td><td>Jawaban wawancara direkam melalui mikrofon saat sesi VR Interview berlangsung. Rekaman suara diproses dan hasilnya (transkrip teks) disimpan di Firebase Firestore sebagai catatan sesi.</td></tr>
-          <tr><td><span class="dot"></span>Jawaban Sesi</td><td>Seluruh jawaban atas pertanyaan wawancara dalam satu sesi disimpan di Firebase Firestore untuk keperluan evaluasi dan riwayat wawancara pengguna.</td></tr>
+          <tr><td><span class="dot"></span>CV / Resume</td><td>File CV dalam format PDF dapat diunggah secara opsional, namun <em>wajib diunggah</em> agar pengguna dapat memulai sesi VR Interview. Isi teks CV diekstrak dan disimpan di Firebase Firestore sebagai konteks untuk menghasilkan pertanyaan wawancara yang relevan dengan profil pengguna.</td></tr>
+          <tr><td><span class="dot"></span>Input Suara</td><td>Jawaban wawancara direkam melalui mikrofon selama sesi VR Interview berlangsung. Rekaman diproses menjadi transkrip teks yang disimpan di Firebase Firestore sebagai catatan sesi. Selain itu, fitur persiapan wawancara juga menggunakan input suara untuk latihan menjawab pertanyaan.</td></tr>
+          <tr><td><span class="dot"></span>Jawaban Sesi VR</td><td>Seluruh jawaban atas 8 pertanyaan utama dan hingga 3 pertanyaan tambahan dalam satu sesi VR disimpan di Firebase Firestore untuk keperluan evaluasi AI dan riwayat wawancara pengguna.</td></tr>
+          <tr><td><span class="dot"></span>Data Persiapan</td><td>Hasil dari fitur persiapan wawancara — termasuk analisis CV, hasil generate pertanyaan acak, contoh sesi interview lengkap, dan data latihan jawaban — disimpan di Firebase Firestore agar dapat diakses kembali tanpa perlu generate ulang setiap sesi.</td></tr>
         </table>
       </div>
 
-      <p><strong style="font-family:'Syne',sans-serif; font-size:13px; color:var(--ink);">Data Personalisasi (Bukan Data Pribadi)</strong></p>
+      <p class="sub-heading">Data Personalisasi (Bukan Data Pribadi)</p>
       <div class="table-wrap">
         <table class="data-table">
           <tr><td><span class="dot"></span>Nama Perusahaan</td><td>Input teks untuk menyesuaikan konteks wawancara. Tidak terikat pada identitas pengguna secara personal.</td></tr>
-          <tr><td><span class="dot"></span>Posisi Jabatan</td><td>Input teks untuk menyesuaikan jenis pertanyaan yang dihasilkan AI.</td></tr>
-          <tr><td><span class="dot"></span>Bahasa & Kode</td><td>Preferensi bahasa dan kode sesi yang digunakan untuk konfigurasi sesi wawancara.</td></tr>
+          <tr><td><span class="dot"></span>Posisi Jabatan</td><td>Input teks untuk menyesuaikan jenis pertanyaan yang dihasilkan AI serta relevansi analisis CV.</td></tr>
+          <tr><td><span class="dot"></span>Bahasa &amp; Mode</td><td>Preferensi bahasa wawancara (Bahasa Indonesia atau Inggris) dan mode wawancara yang digunakan untuk konfigurasi sesi.</td></tr>
+          <tr><td><span class="dot"></span>Konteks Tambahan</td><td>Informasi konteks perusahaan dan posisi yang diinputkan secara opsional oleh pengguna untuk membantu AI menghasilkan pertanyaan yang lebih spesifik.</td></tr>
+          <tr><td><span class="dot"></span>Pengaturan Aplikasi</td><td>Preferensi tampilan VR (offset jarak layar), pilihan mode TTS (Google atau bawaan perangkat), serta preferensi bahasa antarmuka, disimpan di Firebase Firestore dan perangkat lokal.</td></tr>
         </table>
       </div>
 
@@ -715,10 +732,12 @@
       <p>Data yang dikumpulkan hanya digunakan untuk tujuan berikut:</p>
       <div class="table-wrap">
         <table class="data-table">
-          <tr><td><span class="dot"></span>Autentikasi Akun</td><td>Email digunakan untuk proses login dan manajemen akun melalui Firebase Authentication.</td></tr>
-          <tr><td><span class="dot"></span>Simulasi Wawancara</td><td>CV dan data personalisasi digunakan sebagai konteks untuk Google Gemini API dalam menghasilkan pertanyaan wawancara yang relevan.</td></tr>
-          <tr><td><span class="dot"></span>Riwayat & Evaluasi</td><td>Jawaban sesi disimpan agar pengguna dapat meninjau kembali riwayat wawancara dan perkembangan mereka.</td></tr>
-          <tr><td><span class="dot"></span>Penelitian Akademis</td><td>Data dianalisis secara anonim dan agregat untuk keperluan penelitian pengembang mengenai efektivitas simulasi wawancara berbasis VR.</td></tr>
+          <tr><td><span class="dot"></span>Autentikasi Akun</td><td>Email digunakan untuk proses login dan manajemen akun melalui Firebase Authentication, termasuk reset kata sandi dan penghapusan akun.</td></tr>
+          <tr><td><span class="dot"></span>Simulasi Wawancara VR</td><td>CV dan data personalisasi dikirimkan ke Google Gemini API untuk menghasilkan 8 pertanyaan wawancara yang spesifik dan relevan dengan profil pengguna, beserta sesi pertanyaan tambahan kepada perusahaan.</td></tr>
+          <tr><td><span class="dot"></span>Fitur Persiapan Wawancara</td><td>CV dan data personalisasi digunakan oleh Google Gemini API untuk menghasilkan analisis CV (requirements, kesesuaian, saran perbaikan), pertanyaan acak latihan, saran jawaban, dan contoh sesi interview lengkap sebagai panduan persiapan sebelum sesi VR.</td></tr>
+          <tr><td><span class="dot"></span>Evaluasi &amp; Riwayat</td><td>Jawaban sesi disimpan agar pengguna dapat meninjau kembali riwayat wawancara, mengunduh laporan PDF, dan memantau perkembangan kemampuan mereka dari waktu ke waktu.</td></tr>
+          <tr><td><span class="dot"></span>Text-to-Speech (TTS)</td><td>Teks evaluasi hasil wawancara dibacakan menggunakan layanan Google TTS atau TTS bawaan perangkat sesuai preferensi pengguna, untuk menyampaikan hasil analisis secara audio di akhir sesi VR.</td></tr>
+          <tr><td><span class="dot"></span>Penelitian Akademis</td><td>Data dianalisis secara anonim dan agregat untuk keperluan penelitian pengembang mengenai efektivitas simulasi wawancara berbasis VR dan kecerdasan buatan.</td></tr>
         </table>
       </div>
       <div class="callout">
@@ -738,8 +757,9 @@
       <p>VRAINTERVIEW tidak menjual, menukar, atau memindahkan informasi Anda kepada pihak luar. Data Anda hanya dibagikan kepada layanan pihak ketiga berikut yang diperlukan untuk menjalankan fungsi utama aplikasi:</p>
       <div class="table-wrap">
         <table class="data-table">
-          <tr><td><span class="dot"></span>Firebase (Google)</td><td>Layanan backend untuk autentikasi, penyimpanan data sesi, dan file CV. Data diproses sesuai kebijakan privasi Google/Firebase.</td></tr>
-          <tr><td><span class="dot"></span>Google Gemini API</td><td>CV dan konteks sesi dikirimkan ke API ini untuk menghasilkan pertanyaan wawancara. Data tidak digunakan untuk melatih model oleh Google sesuai ketentuan layanan API.</td></tr>
+          <tr><td><span class="dot"></span>Firebase (Google)</td><td>Layanan backend untuk autentikasi, penyimpanan data sesi, data persiapan wawancara, pengaturan aplikasi, serta teks CV pengguna. Data diproses sesuai kebijakan privasi Google/Firebase.</td></tr>
+          <tr><td><span class="dot"></span>Google Gemini API</td><td>CV dan konteks sesi dikirimkan ke API ini untuk menghasilkan pertanyaan wawancara, analisis CV, saran jawaban, dan contoh sesi interview. Data tidak digunakan untuk melatih model oleh Google sesuai ketentuan layanan API.</td></tr>
+          <tr><td><span class="dot"></span>Google TTS API</td><td>Teks evaluasi dikirimkan ke layanan Google Text-to-Speech untuk menghasilkan audio pembacaan hasil analisis di akhir sesi VR, apabila pengguna memilih opsi Google TTS. Pengguna dapat memilih TTS bawaan perangkat sebagai alternatif tanpa mengirimkan data ke server Google.</td></tr>
           <tr><td><span class="dot"></span>Kewajiban Hukum</td><td>Diwajibkan oleh hukum atau perintah pengadilan yang berlaku di Indonesia.</td></tr>
           <tr><td><span class="dot"></span>Perlindungan Pengguna</td><td>Diperlukan untuk melindungi hak, keselamatan, atau keamanan pengguna.</td></tr>
         </table>
@@ -759,8 +779,9 @@
         <table class="data-table">
           <tr><td><span class="dot"></span>Enkripsi Transit</td><td>Semua komunikasi data antara aplikasi dan server menggunakan protokol HTTPS/TLS sehingga data terenkripsi selama pengiriman.</td></tr>
           <tr><td><span class="dot"></span>Firebase Security Rules</td><td>Akses ke data di Firestore dan Storage dibatasi menggunakan Firebase Security Rules sehingga hanya pengguna yang terautentikasi yang dapat mengakses data miliknya sendiri.</td></tr>
-          <tr><td><span class="dot"></span>Autentikasi Aman</td><td>Sistem login menggunakan Firebase Authentication yang mengelola keamanan kredensial secara terpusat tanpa menyimpan password secara langsung.</td></tr>
-          <tr><td><span class="dot"></span>Minimisasi Data</td><td>Hanya data yang benar-benar diperlukan untuk fungsi aplikasi yang dikumpulkan dan disimpan. Tidak ada data sensitif yang tersimpan di database.</td></tr>
+          <tr><td><span class="dot"></span>Autentikasi Aman</td><td>Sistem login menggunakan Firebase Authentication yang mengelola keamanan kredensial secara terpusat tanpa menyimpan kata sandi secara langsung di database aplikasi.</td></tr>
+          <tr><td><span class="dot"></span>Minimisasi Data</td><td>Hanya data yang benar-benar diperlukan untuk fungsi aplikasi yang dikumpulkan dan disimpan. Tidak ada data sensitif seperti nomor telepon, lokasi, atau informasi keuangan yang tersimpan.</td></tr>
+          <tr><td><span class="dot"></span>Isolasi Data Pengguna</td><td>Setiap data pengguna disimpan secara terpisah berdasarkan UID unik Firebase, sehingga tidak ada pengguna lain yang dapat mengakses data milik pengguna lain.</td></tr>
         </table>
       </div>
       <div class="callout">
@@ -780,18 +801,20 @@
       <p>Sebagai pengguna, Anda memiliki hak penuh atas data Anda:</p>
       <div class="table-wrap">
         <table class="data-table">
-          <tr><td><span class="dot"></span>Hak Tahu</td><td>Mengetahui data apa saja yang dikumpulkan dan disimpan oleh aplikasi ini.</td></tr>
-          <tr><td><span class="dot"></span>Hak Hapus Data</td><td>Menghapus seluruh data sesi wawancara dan file CV kapan saja langsung dari dalam aplikasi.</td></tr>
-          <tr><td><span class="dot"></span>Hak Hapus Akun</td><td>Menghapus akun beserta seluruh data terkait secara permanen dari Firebase, termasuk data autentikasi, data Firestore, dan file di Storage.</td></tr>
-          <tr><td><span class="dot"></span>Cabut Izin</td><td>Mencabut izin akses kamera/mikrofon kapan saja melalui Pengaturan Android tanpa perlu menghapus akun.</td></tr>
-          <tr><td><span class="dot"></span>Hak Bertanya</td><td>Mengajukan pertanyaan atau keberatan mengenai privasi kepada pengembang melalui saluran kontak yang tersedia.</td></tr>
+          <tr><td><span class="dot"></span>Hak Tahu</td><td>Mengetahui data apa saja yang dikumpulkan dan disimpan oleh aplikasi ini, sebagaimana dijelaskan secara rinci dalam kebijakan privasi ini.</td></tr>
+          <tr><td><span class="dot"></span>Hak Hapus Sesi</td><td>Menghapus riwayat sesi wawancara satu per satu kapan saja langsung dari dalam aplikasi melalui halaman Laporan.</td></tr>
+          <tr><td><span class="dot"></span>Hak Hapus CV</td><td>Menghapus file CV dan data persiapan wawancara kapan saja melalui menu pengaturan profil di dalam aplikasi.</td></tr>
+          <tr><td><span class="dot"></span>Hak Hapus Akun</td><td>Menghapus akun beserta <em>seluruh data terkait</em> secara permanen dari Firebase, termasuk data autentikasi, profil, riwayat sesi, data persiapan, dan pengaturan aplikasi.</td></tr>
+          <tr><td><span class="dot"></span>Cabut Izin</td><td>Mencabut izin akses mikrofon kapan saja melalui Pengaturan Android tanpa perlu menghapus akun. Mencabut izin mikrofon akan menonaktifkan fitur input suara.</td></tr>
+          <tr><td><span class="dot"></span>Pilih Mode TTS</td><td>Memilih metode text-to-speech yang digunakan, yaitu Google TTS (suara lebih natural, memerlukan koneksi internet) atau TTS bawaan perangkat (lebih cepat, tidak mengirim data ke server eksternal).</td></tr>
+          <tr><td><span class="dot"></span>Hak Bertanya</td><td>Mengajukan pertanyaan atau keberatan mengenai privasi kepada pengembang melalui saluran kontak yang tersedia di bagian bawah halaman ini.</td></tr>
         </table>
       </div>
     </div>
 
     <div class="divider"></div>
 
-    <!-- 06 — NEW: Hapus Akun & Data -->
+    <!-- 06 -->
     <div class="section" id="s6">
       <div class="section-top">
         <span class="section-index">06</span>
@@ -799,45 +822,62 @@
       </div>
       <p>Pengguna memiliki kendali penuh untuk menghapus data maupun akun mereka kapan saja, langsung dari dalam aplikasi VRAINTERVIEW. Proses penghapusan bersifat permanen dan tidak dapat dibatalkan.</p>
 
-      <p><strong style="font-family:'Syne',sans-serif; font-size:13px; color:var(--ink);">Menghapus Data Sesi</strong></p>
-      <p>Untuk menghapus riwayat sesi wawancara dan file CV tanpa menghapus akun:</p>
+      <p class="sub-heading">Menghapus Riwayat Sesi Wawancara</p>
+      <p>Riwayat sesi wawancara dapat dihapus satu per satu melalui halaman Laporan. Tidak tersedia opsi hapus semua riwayat sekaligus — setiap sesi harus dihapus secara individual untuk memastikan pengguna tidak menghapus data yang masih dibutuhkan secara tidak sengaja.</p>
       <div class="steps">
         <div class="step-item">
           <div class="step-num">1</div>
-          <div class="step-text">Buka aplikasi VRAINTERVIEW dan masuk ke halaman <strong>Profil</strong> atau <strong>Riwayat Sesi</strong>.</div>
+          <div class="step-text">Buka aplikasi VRAINTERVIEW dan masuk ke tab <strong>Laporan</strong> melalui navigasi bawah.</div>
         </div>
         <div class="step-item">
           <div class="step-num">2</div>
-          <div class="step-text">Pilih sesi yang ingin dihapus, atau gunakan opsi <strong>"Hapus Semua Riwayat"</strong> untuk menghapus seluruh data sesi sekaligus.</div>
+          <div class="step-text">Pilih sesi wawancara yang ingin dihapus dari daftar riwayat yang tersedia.</div>
         </div>
         <div class="step-item">
           <div class="step-num">3</div>
-          <div class="step-text">Untuk menghapus file CV, buka halaman <strong>Pengaturan Profil</strong> dan pilih <strong>"Hapus CV"</strong>.</div>
+          <div class="step-text">Di halaman detail sesi, temukan opsi <strong>"Hapus Sesi"</strong> dan konfirmasi penghapusan.</div>
         </div>
         <div class="step-item">
           <div class="step-num">4</div>
-          <div class="step-text">Konfirmasi penghapusan. Data akan dihapus secara permanen dari Firebase Storage dan Firestore.</div>
+          <div class="step-text">Data sesi tersebut akan dihapus secara permanen dari Firebase Firestore. Ulangi langkah ini untuk setiap sesi yang ingin dihapus.</div>
         </div>
       </div>
 
-      <p style="margin-top: 24px;"><strong style="font-family:'Syne',sans-serif; font-size:13px; color:var(--ink);">Menghapus Akun Secara Permanen</strong></p>
-      <p>Penghapusan akun akan menghapus <em>seluruh data Anda</em> dari Firebase, termasuk akun autentikasi, data profil, riwayat sesi, dan file CV yang tersimpan.</p>
+      <p class="sub-heading" style="margin-top:24px;">Menghapus File CV &amp; Data Persiapan</p>
+      <p>Untuk menghapus file CV dan hasil persiapan wawancara tanpa menghapus akun:</p>
       <div class="steps">
         <div class="step-item">
           <div class="step-num">1</div>
-          <div class="step-text">Buka aplikasi dan masuk ke menu <strong>Pengaturan</strong> atau <strong>Profil Saya</strong>.</div>
+          <div class="step-text">Buka aplikasi dan masuk ke halaman <strong>Home</strong>, kemudian pilih menu edit CV.</div>
         </div>
         <div class="step-item">
           <div class="step-num">2</div>
-          <div class="step-text">Gulir ke bawah dan temukan opsi <strong>"Hapus Akun"</strong>.</div>
+          <div class="step-text">Pilih opsi <strong>"Hapus CV"</strong> pada halaman pengaturan CV, kemudian simpan perubahan.</div>
         </div>
         <div class="step-item">
           <div class="step-num">3</div>
-          <div class="step-text">Baca informasi konfirmasi yang ditampilkan. Sistem mungkin meminta verifikasi identitas (re-login) sebelum proses penghapusan.</div>
+          <div class="step-text">Data CV dan hasil analisis persiapan wawancara yang tersimpan akan dihapus secara permanen dari Firebase Firestore.</div>
+        </div>
+      </div>
+
+      <p class="sub-heading" style="margin-top:24px;">Menghapus Akun Secara Permanen</p>
+      <p>Penghapusan akun akan menghapus <em>seluruh data Anda</em> dari Firebase secara sekaligus, termasuk akun autentikasi, data profil, seluruh riwayat sesi wawancara, data persiapan wawancara, file CV, dan pengaturan aplikasi. Tidak diperlukan penghapusan data satu per satu terlebih dahulu.</p>
+      <div class="steps">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text">Buka aplikasi dan masuk ke tab <strong>Profil</strong> melalui navigasi bawah.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text">Temukan dan pilih opsi <strong>"Hapus Akun"</strong> yang tersedia di halaman profil.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text">Baca informasi konfirmasi yang ditampilkan dengan seksama. Sistem akan meminta konfirmasi sebelum proses penghapusan dimulai.</div>
         </div>
         <div class="step-item">
           <div class="step-num">4</div>
-          <div class="step-text">Konfirmasi penghapusan. Akun dan <strong>seluruh data terkait</strong> akan dihapus secara permanen dari Firebase Authentication, Firestore, dan Storage.</div>
+          <div class="step-text">Konfirmasi penghapusan. Akun dan <strong>seluruh data terkait</strong> akan dihapus secara permanen dan bersamaan dari Firebase Authentication dan Firestore.</div>
         </div>
       </div>
 
@@ -845,7 +885,7 @@
         <div class="callout-icon">
           <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         </div>
-        <p class="callout-text">Penghapusan akun bersifat <strong>permanen dan tidak dapat dibatalkan</strong>. Pastikan Anda telah menyimpan data yang diperlukan sebelum melanjutkan. Jika mengalami kendala dalam proses penghapusan, hubungi pengembang melalui kontak yang tersedia di bagian bawah halaman ini.</p>
+        <p class="callout-text">Penghapusan akun bersifat <strong>permanen dan tidak dapat dibatalkan</strong>. Seluruh riwayat sesi, data persiapan, CV, dan pengaturan akan ikut terhapus secara bersamaan. Pastikan Anda telah mengunduh atau menyimpan laporan yang diperlukan sebelum melanjutkan. Jika mengalami kendala, hubungi pengembang melalui kontak yang tersedia di bagian bawah halaman ini.</p>
       </div>
     </div>
 
@@ -857,7 +897,7 @@
         <span class="section-index">07</span>
         <h2>Perubahan Kebijakan</h2>
       </div>
-      <p>Kami dapat memperbarui kebijakan privasi ini dari waktu ke waktu. Perubahan akan diberitahukan melalui pembaruan aplikasi atau halaman ini. Kami mendorong Anda untuk meninjau halaman ini secara berkala.</p>
+      <p>Kami dapat memperbarui kebijakan privasi ini dari waktu ke waktu seiring perkembangan fitur aplikasi. Perubahan akan diberitahukan melalui pembaruan aplikasi atau halaman ini. Kami mendorong Anda untuk meninjau halaman ini secara berkala.</p>
       <div class="callout">
         <div class="callout-icon"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
         <p class="callout-text">Penggunaan berkelanjutan atas aplikasi setelah perubahan diterbitkan dianggap sebagai <strong>persetujuan terhadap kebijakan yang diperbarui</strong>.</p>
@@ -872,7 +912,7 @@
         <span class="section-index">08</span>
         <h2>Hubungi Kami</h2>
       </div>
-      <p>Jika Anda memiliki pertanyaan atau kekhawatiran mengenai kebijakan privasi ini, silakan hubungi pengembang melalui saluran berikut:</p>
+      <p>Jika Anda memiliki pertanyaan atau kekhawatiran mengenai kebijakan privasi ini, atau ingin mengajukan permintaan terkait data Anda, silakan hubungi pengembang melalui saluran berikut:</p>
       <div class="contact-grid">
         <a class="contact-item" href="mailto:toopique@gmail.com">
           <div class="contact-icon-wrap">
